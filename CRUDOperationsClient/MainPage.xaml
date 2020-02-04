@@ -1,0 +1,112 @@
+﻿<Page
+    x:Class="CRUDOperationsClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:extensions="using:CRUDOperationsClient.Extensions"
+    xmlns:mainPage="using:CRUDOperationsClient.ViewModels.MainPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <mainPage:EmployeeViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="Silver">
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
+            <TextBlock Text="CRUD Operation Example"
+                       Margin="0, 50"
+                       FontSize="20"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <extensions:NullConverter x:Key="NullableIntConverter"/>
+            </StackPanel.Resources>
+            <StackPanel Width="600"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0, 15">
+                <TextBlock Text="Please enter the Employee ID if you are looking for"
+                           VerticalAlignment="Center"/>
+                <TextBox Text="{Binding SearchId, Mode=TwoWay, TargetNullValue='', Converter={StaticResource NullableIntConverter}}"
+                         Width="100"
+                         Margin="10, 15"
+                         PlaceholderText="ID..."
+                         InputScope="Number"
+                         TextChanging="NumericTextBox_OnTextChanging"/>
+                <Button Command="{Binding SearchByIdBtnClick}"
+                        IsEnabled="{Binding EnableSearchByIdBtn}"
+                        Content="Search"
+                        Width="100"/>
+            </StackPanel>
+            <StackPanel Width="600"
+                        Orientation="Vertical"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0, 15">
+                <TextBlock Text="Please enter or edit your Employee Information:"/>
+            </StackPanel>
+            <StackPanel Width="550"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0, 5" >
+                <TextBox Text="{Binding Id, Mode=TwoWay}"
+                         Width="100"
+                         Margin="0, 5"
+                         IsReadOnly="True"
+                         PlaceholderText="Employee ID"/>
+                <TextBox Text="{Binding Name, Mode=TwoWay, TargetNullValue=''}"
+                         Width="420"
+                         Margin="25, 5"
+                         PlaceholderText="Name..."/>
+            </StackPanel>
+            <StackPanel Width="550"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0, 3" >
+                <TextBox Text="{Binding Age, Mode=TwoWay, TargetNullValue='', Converter={StaticResource NullableIntConverter}}"
+                         Width="100"
+                         Margin="0, 5"
+                         PlaceholderText="Age..."
+                         InputScope="Number"
+                         TextChanging="NumericTextBox_OnTextChanging"/>
+                <TextBox Text="{Binding Email, Mode=TwoWay, TargetNullValue=''}"
+                         Width="420"
+                         Margin="25, 5"
+                         PlaceholderText="E-mail address..."/>
+            </StackPanel>
+            <StackPanel Width="600"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0, 15">
+                <Button Command="{Binding InsertBtnClick}"
+                        IsEnabled="{Binding EnableInsertBtn}"
+                        Content="Insert"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="60, 10, 30, 10"
+                        Width="100"/>
+                <Button Command="{Binding UpdateBtnClick}"
+                        IsEnabled="{Binding EnableUpdateBtn}"
+                        Content="Update"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="60, 10, 30, 10"
+                        Width="100"/>
+                <Button Command="{Binding DeleteBtnClick}"
+                        IsEnabled="{Binding EnableDeleteBtn}"
+                        Content="Delete"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="60, 10, 30, 10"
+                        Width="100"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
